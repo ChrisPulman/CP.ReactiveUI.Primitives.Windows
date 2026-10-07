@@ -6,6 +6,16 @@ on:
       - main
 
 jobs:
+  signing-runtime:
+    name: Signing Python runtime
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/reactiveui/certum-signer:latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Ensure signing Python runtime
+        uses: ./.github/actions/setup-signing-python
+
   windows-latest:
     name: windows-latest
     runs-on: windows-latest
