@@ -1,32 +1,35 @@
-The release signing workflow uses `connect-simplysign.py` inside the Certum
-signer container. ImageMagick and Tesseract recognize the English login labels
-and success dialog; no credentials, application logs, OCR text, or screenshots
-are published. An unrecognized form fails closed.
+The Release workflow uses the headless Certum integration described in the
+[ssign GitHub Actions guide](https://le-syl21.github.io/ssign/github-actions.html).
+It runs on an Ubuntu runner and retains the existing `release` environment.
+The signing job is part of the build/sign/publish dependency chain.
 
-The previous workflow identified a window by size, clicked fixed percentages,
-and clicked Close after eight seconds without establishing login success.
-Job [113052627313](https://github.com/ChrisPulman/CP.ReactiveUI.Primitives.Windows/actions/runs/37696509558/job/113052627313)
-found a 672x510 window, then timed out enumerating PKCS#11 slots. Its logs do not
-establish which login control received the clicks.
+These artifacts are NuGet packages, so signing uses the
+[ssign PKCS11 module](https://le-syl21.github.io/ssign/pkcs11.html) with jsign.
+The ssign CLI signs PE binaries and cannot directly sign `.nupkg` files.
+The local `setup-ssign` action downloads ssign PKCS11 v0.1.7 and jsign 7.4,
+verifies pinned SHA256 digests, and sets up Java 21. There is no SimplySign
+Desktop, GUI automation, Python runtime, or signing container.
 
-Source evidence for the replacement:
+The existing release secrets map directly to the module's documented variables:
 
-- The [Certum CAS login page](https://cloudsign.webnotarius.pl/idp/login),
-  inspected on 2026-10-07, labels its inputs `E-mail` and `One-time code` with
-  `for="username"` and `for="password"`. It has both a `Sign In` heading and a
-  submit button below the code field. Clicking the associated labels focuses
-  the inputs and avoids dependence on page proportions or tab order.
-- The vendor installer version
-  [2.9.15-9.4.5.0](https://files.certum.eu/software/SimplySignDesktop/Linux-Ubuntu/2.9.15-9.4.5.0/SimplySignDesktop-2.9.15-9.4.5.0-x86_64-prod-ubuntu.bin)
-  used by the signer image contains `languages/en/strings.plist`: its success
-  message is literally `Logon succesfull`, and its dismissal control is `Close`.
-- The container reference [documents that slot enumeration hangs](https://github.com/hpvb/certum-container#troubleshooting)
-  when login is incomplete or the success dialog remains open. The
-  [shared signing action](https://github.com/reactiveui/actions-common/blob/main/.github/actions/certum-sign/action.yml)
-  uses the same login and Close sequence as the previous workflow.
+- `CERTUM_USER_ID` becomes `CERTUM_EMAIL` (the Certum account e-mail).
+- `CERTUM_OTP_URI` becomes `CERTUM_OTP`; ssign accepts a full `otpauth://` URI.
+- `CERTUM_CERT_FINGERPRINT` remains the expected signer SHA256 fingerprint.
 
-The script waits for recognized controls, generates a fresh OTP immediately
-before submission, closes only a recognized success dialog, and requires an
-initialized token with manufacturer `CERTUM` and model `SimplySign`. It exports
-the actual slot list index used by jsign. Three bounded readiness probes handle
-session initialization; package certificate verification remains mandatory.
+The module exposes one slot, selected by SunPKCS11 `slotListIndex = 0`.
+jsign uses SHA-256 with RSA PKCS#1 v1.5 and RFC3161 timestamping. Every signed
+package must pass `dotnet nuget verify --all --certificate-fingerprint` before
+upload. Signing secrets are scoped to the signing step. Its private runtime
+directory contains ssign's shared session cache and is removed on step exit.
+
+The BuildOnly workflow installs the same pinned tools and inspects PKCS11
+mechanisms without credentials. This checks downloads and native module loading;
+it does not authenticate or sign. A Release run with the protected environment's
+credentials is still required to verify cloud signing end to end.
+
+Source compatibility: [tagged ssign module](https://github.com/Le-Syl21/ssign/blob/v0.1.7/ssign-pkcs11/src/lib.rs)
+explicitly supports Java/SunPKCS11 SHA256 RSA signing, including multipart data.
+[jsign NuGet support](https://github.com/ebourg/jsign/blob/7.4/jsign-core/src/main/java/net/jsign/nuget/NugetFile.java)
+creates NuGet `.signature.p7s` signatures. The original failed job was
+[113052627313](https://github.com/ChrisPulman/CP.ReactiveUI.Primitives.Windows/actions/runs/37696509558/job/113052627313),
+which timed out enumerating the desktop client's PKCS11 slots.

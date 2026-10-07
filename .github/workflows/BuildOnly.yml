@@ -7,14 +7,22 @@ on:
 
 jobs:
   signing-runtime:
-    name: Signing Python runtime
+    name: ssign signing runtime
     runs-on: ubuntu-latest
-    container:
-      image: ghcr.io/reactiveui/certum-signer:latest
     steps:
       - uses: actions/checkout@v7
-      - name: Ensure signing Python runtime
-        uses: ./.github/actions/setup-signing-python
+      - name: Setup ssign package signing
+        id: signing-tools
+        uses: ./.github/actions/setup-ssign
+      - name: Inspect PKCS11 mechanisms without signing credentials
+        shell: bash
+        env:
+          SSIGN_MODULE: ${{ steps.signing-tools.outputs.module-path }}
+        run: |
+          set -euo pipefail
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends opensc
+          pkcs11-tool --module "$SSIGN_MODULE" --list-mechanisms
 
   windows-latest:
     name: windows-latest
