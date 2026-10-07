@@ -1,5 +1,5 @@
-// Copyright (c) 2023-2026 Chris Pulman and Contributors. All rights reserved.
-// Chris Pulman and Contributors licenses this file to you under the MIT license.
+// Copyright (c) 2019-2026 Chris Pulman and contributors. All rights reserved.
+// Chris Pulman and contributors licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for full license information.
 
 using System.Drawing;
@@ -96,11 +96,11 @@ public readonly struct NativePointFloat(float x, float y) : IEquatable<NativePoi
     /// <inheritdoc />
     public override bool Equals(object obj)
     {
-        if (!(obj is NativePointFloat nativePointFloat))
+        if (obj is not NativePointFloat nativePointFloat)
         {
-            if (!(obj is Point drawingPoint))
+            if (obj is not Point drawingPoint)
             {
-                return !(obj is NativePoint nativePoint)
+                return obj is not NativePoint nativePoint
                     ? obj is System.Windows.Point point && Equals(point)
                     : Equals(nativePoint);
             }

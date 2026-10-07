@@ -1,5 +1,5 @@
-// Copyright (c) 2023-2026 Chris Pulman and Contributors. All rights reserved.
-// Chris Pulman and Contributors licenses this file to you under the MIT license.
+// Copyright (c) 2019-2026 Chris Pulman and contributors. All rights reserved.
+// Chris Pulman and contributors licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for full license information.
 
 using CP.ReactiveUI.Primitives.Windows.Integrations.Browser;
@@ -28,9 +28,14 @@ public sealed class IntegrationCoverage2Tests
         await Assert.That(static () => InternetExplorerVersion.GetVersion(null)).Throws<ArgumentNullException>();
 
         InternetExplorerVersion.ChangeEmbeddedVersion("integration-coverage", BrowserFeatureVersion, registry);
+#if DEBUG
+        await Assert.That(registry.SetValueCount).IsEqualTo(Two);
+        await Assert.That(registry.ValueName).IsEqualTo("integration-coverage.vshost.exe");
+#else
         await Assert.That(registry.SetValueCount).IsEqualTo(One);
-        await Assert.That(registry.KeyName).Contains("FEATURE_BROWSER_EMULATION");
         await Assert.That(registry.ValueName).IsEqualTo("integration-coverage.exe");
+#endif
+        await Assert.That(registry.KeyName).Contains("FEATURE_BROWSER_EMULATION");
         await Assert.That(registry.Value).IsEqualTo(BrowserFeatureVersion);
 
         var unauthorized = new InternetExplorerRegistryProbe { ExceptionToThrow = new UnauthorizedAccessException() };

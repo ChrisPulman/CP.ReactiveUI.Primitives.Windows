@@ -1,5 +1,5 @@
-// Copyright (c) 2023-2026 Chris Pulman and Contributors. All rights reserved.
-// Chris Pulman and Contributors licenses this file to you under the MIT license.
+// Copyright (c) 2019-2026 Chris Pulman and contributors. All rights reserved.
+// Chris Pulman and contributors licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for full license information.
 
 #if REACTIVE_SHIM
@@ -43,7 +43,7 @@ public static class ClipboardFileExtensions
                     return [];
                 }
 
-                List<string> result = new(files);
+                List<string> result = [with(capacity: files)];
                 var filename = stackalloc char[MaximumPathLength];
                 for (var i = 0U; i < files; i = checked(i + 1))
                 {

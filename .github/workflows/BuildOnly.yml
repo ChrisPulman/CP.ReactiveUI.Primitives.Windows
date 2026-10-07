@@ -54,8 +54,8 @@ jobs:
         run: |
           dotnet .\src\CP.ReactiveUI.Primitives.Windows.Tests\bin\Release\net10.0-windows\CP.ReactiveUI.Primitives.Windows.Tests.dll `
             --minimum-expected-tests 1 `
-            --config-file .\testconfig.json `
-            --results-directory .\src\TestResults\net10 `
+            --config-file "$env:GITHUB_WORKSPACE\testconfig.json" `
+            --results-directory "$env:GITHUB_WORKSPACE\src\TestResults\net10" `
             --coverage `
             --coverage-output CP.ReactiveUI.Primitives.Windows.Tests.cobertura.xml `
             --coverage-output-format cobertura
@@ -65,8 +65,8 @@ jobs:
         run: |
           dotnet .\src\CP.ReactiveUI.Primitives.Windows.Tests\bin\Release\net10.0-windows\reactive-shim\net10.0-windows\CP.ReactiveUI.Primitives.Windows.Tests.dll `
             --minimum-expected-tests 1 `
-            --config-file .\testconfig.json `
-            --results-directory .\src\TestResults\reactive-net10 `
+            --config-file "$env:GITHUB_WORKSPACE\testconfig.json" `
+            --results-directory "$env:GITHUB_WORKSPACE\src\TestResults\reactive-net10" `
             --coverage `
             --coverage-output CP.ReactiveUI.Primitives.Windows.Reactive.Tests.cobertura.xml `
             --coverage-output-format cobertura
@@ -76,8 +76,8 @@ jobs:
         run: |
           dotnet .\src\CP.ReactiveUI.Primitives.Windows.Tests\bin\Release\net11.0-windows\CP.ReactiveUI.Primitives.Windows.Tests.dll `
             --minimum-expected-tests 1 `
-            --config-file .\testconfig.json `
-            --results-directory .\src\TestResults\net11
+            --config-file "$env:GITHUB_WORKSPACE\testconfig.json" `
+            --results-directory "$env:GITHUB_WORKSPACE\src\TestResults\net11"
 
       - name: Upload coverage
         uses: actions/upload-artifact@v7

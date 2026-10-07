@@ -1,5 +1,5 @@
-// Copyright (c) 2023-2026 Chris Pulman and Contributors. All rights reserved.
-// Chris Pulman and Contributors licenses this file to you under the MIT license.
+// Copyright (c) 2019-2026 Chris Pulman and contributors. All rights reserved.
+// Chris Pulman and contributors licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for full license information.
 
 namespace CP.ReactiveUI.Primitives.Windows.Integrations.Citrix.Structs;
@@ -70,11 +70,12 @@ public readonly struct SessionTime : IEquatable<SessionTime>
 
     /// <inheritdoc/>
     public bool Equals(SessionTime other) =>
-        _connectTime.Equals(other._connectTime)
-        && _disconnectTime.Equals(other._disconnectTime)
-        && _lastInputTime.Equals(other._lastInputTime)
-        && _logonTime.Equals(other._logonTime)
-        && _currentTime.Equals(other._currentTime);
+        // Ordering equality preserves exact timestamp values, including NaN and signed zero.
+        _connectTime.CompareTo(other._connectTime) == 0
+        && _disconnectTime.CompareTo(other._disconnectTime) == 0
+        && _lastInputTime.CompareTo(other._lastInputTime) == 0
+        && _logonTime.CompareTo(other._logonTime) == 0
+        && _currentTime.CompareTo(other._currentTime) == 0;
 
     /// <inheritdoc/>
     public override int GetHashCode() => HashCode.Combine(

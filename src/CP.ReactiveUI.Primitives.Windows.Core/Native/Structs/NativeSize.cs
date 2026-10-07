@@ -1,5 +1,5 @@
-// Copyright (c) 2023-2026 Chris Pulman and Contributors. All rights reserved.
-// Chris Pulman and Contributors licenses this file to you under the MIT license.
+// Copyright (c) 2019-2026 Chris Pulman and contributors. All rights reserved.
+// Chris Pulman and contributors licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for full license information.
 
 using CP.ReactiveUI.Primitives.Windows.Native.TypeConverters;
@@ -179,9 +179,9 @@ public readonly struct NativeSize : IEquatable<NativeSize>, IComparable<NativeSi
     /// <inheritdoc />
     public override bool Equals(object obj)
     {
-        if (!(obj is NativeSize size))
+        if (obj is not NativeSize size)
         {
-            return !(obj is System.Drawing.Size drawingSize)
+            return obj is not System.Drawing.Size drawingSize
                 ? obj is System.Windows.Size windowsSize && Equals(windowsSize)
                 : Equals(drawingSize);
         }

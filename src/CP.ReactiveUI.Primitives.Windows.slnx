@@ -15,6 +15,7 @@
     <Project Path="CP.ReactiveUI.Primitives.Windows.Example.ConsoleDemo/CP.ReactiveUI.Primitives.Windows.Example.ConsoleDemo.csproj" />
     <Project Path="CP.ReactiveUI.Primitives.Windows.Example.FormsExample/CP.ReactiveUI.Primitives.Windows.Example.FormsExample.csproj" />
     <Project Path="CP.ReactiveUI.Primitives.Windows.Example.InstallerExample/CP.ReactiveUI.Primitives.Windows.Example.InstallerExample.csproj" />
+    <Project Path="CP.ReactiveUI.Primitives.Windows.Example.TaskManager/CP.ReactiveUI.Primitives.Windows.Example.TaskManager.csproj" />
     <Project Path="CP.ReactiveUI.Primitives.Windows.Example.WpfExample/CP.ReactiveUI.Primitives.Windows.Example.WpfExample.csproj" />
   </Folder>
   <Folder Name="/Reactive Examples/">

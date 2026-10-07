@@ -1,5 +1,5 @@
-// Copyright (c) 2023-2026 Chris Pulman and Contributors. All rights reserved.
-// Chris Pulman and Contributors licenses this file to you under the MIT license.
+// Copyright (c) 2019-2026 Chris Pulman and contributors. All rights reserved.
+// Chris Pulman and contributors licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for full license information.
 
 using CP.ReactiveUI.Primitives.Windows.Interop.Com;
@@ -86,7 +86,20 @@ public static class AppQueryExtensions
         GetAppLauncherHandle(_appVisibilityProvider() is not null, FindAppLauncherOperation);
 
     /// <summary>Gets a value indicating whether the app-launcher is visible.</summary>
-    public static bool IsLauncherVisible => GetLauncherVisibility(_appVisibilityProvider()?.ComObject.IsLauncherVisible());
+    public static bool IsLauncherVisible
+    {
+        get
+        {
+            var appVisibility = _appVisibilityProvider()?.ComObject;
+            if (appVisibility is null)
+            {
+                return false;
+            }
+
+            Marshal.ThrowExceptionForHR(appVisibility.IsLauncherVisible(out var isVisible));
+            return isVisible;
+        }
+    }
 
     /// <summary>Gets handles of all Windows store apps.</summary>
     public static IEnumerable<IInteropWindow> WindowsStoreApps => EnumerateWindowsStoreApps();
@@ -177,7 +190,11 @@ public static class AppQueryExtensions
     /// <param name="appVisibility">The app visibility wrapper, if available.</param>
     /// <returns>The monitor-visibility operation, or null.</returns>
     internal static Func<IntPtr, MonitorAppVisibility> GetVisibilityOnMonitor(IAppVisibility appVisibility) =>
-        appVisibility is null ? null : appVisibility.GetAppVisibilityOnMonitor;
+        appVisibility is null ? null : monitorHandle =>
+        {
+            Marshal.ThrowExceptionForHR(appVisibility.GetAppVisibilityOnMonitor(monitorHandle, out var visibility));
+            return visibility;
+        };
 
     /// <summary>Determines app visibility using supplied display and monitor-visibility observations.</summary>
     /// <param name="windowBounds">Bounds of the window to check.</param>

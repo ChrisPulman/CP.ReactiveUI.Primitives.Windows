@@ -2,6 +2,37 @@
 
 Composable Windows desktop primitives built on `ReactiveUI.Primitives`.
 
+## Windows system monitoring and Task Manager applications
+
+`Desktop.SystemMonitoring` provides CPU, memory, process, network, disk, GPU, hardware, thermal, battery, power-plan, brightness, and Windows service APIs. The lean and Reactive packages expose the same capabilities, including English performance counters and detached WMI queries/events for additional Windows providers. Applications consume ordinary C# values and `IObservable<T>` streams; no C++ project is required.
+
+```csharp
+using CP.ReactiveUI.Primitives.Windows.Desktop.SystemMonitoring;
+using ReactiveUI.Primitives;
+
+var monitor = WindowsSystem.Monitor()
+    .WithCpu().WithMemory().WithProcesses()
+    .WithNetwork().WithStorage().WithGraphics()
+    .WithPower().WithHardware().WithServices()
+    .Every(TimeSpan.FromSeconds(1));
+
+using var subscription = monitor.Observe().Subscribe(snapshot =>
+{
+    if (snapshot.Memory.IsAvailable)
+    {
+        Console.WriteLine(snapshot.Memory.Value.UsedPhysicalBytes);
+    }
+});
+```
+
+Each subscriber owns its rate history and native resources. Sampling runs on the thread pool, uses a delay after each completed cycle, and never overlaps reads. Hardware inventory is cached for five minutes; thermal zones and services are cached for thirty seconds. Provider failures are reported independently through `MonitoringResult<T>`; per-counter warmup, denied access, missing providers, and unsupported sensors remain explicit.
+
+The [monitoring guide](docs/windows-system-monitoring.md) describes the available functions, fluent controls, provider extension points, and hardware limits. The [WPF Task Manager example](src/CP.ReactiveUI.Primitives.Windows.Example.TaskManager/README.md) includes real per-core graphs, memory history, a sortable process table, hardware/GPU/network/disk views, and explicit power-plan selection:
+
+```powershell
+dotnet run --project src/CP.ReactiveUI.Primitives.Windows.Example.TaskManager/CP.ReactiveUI.Primitives.Windows.Example.TaskManager.csproj --framework net10.0-windows10.0.19041.0
+```
+
 The library collection exposes Windows operating-system state, callbacks, and commands through small focused packages. One-shot native calls remain ordinary methods; anything that changes over time, is raised by a message, or reports progress is exposed as an `IObservable<T>` using ReactiveUI.Primitives naming and lifetime conventions.
 
 ## Packages
@@ -26,7 +57,7 @@ The lean and `.Reactive` desktop packages compile the same source. The lean buil
 
 ## Requirements
 
-The packages target `net462`, `net472`, `net48`, `net481`, `net8.0-windows`, `net9.0-windows`, `net10.0-windows`, and `net11.0-windows`. Stable local and Visual Studio builds select the four .NET Framework targets plus `net10.0-windows`; the `net11.0-windows` preview target is enabled explicitly for preview-SDK and CI builds. They are intended for Windows desktop processes and use Windows Forms/WPF-capable TFMs where required by the underlying operating-system feature.
+The packages target `net462`, `net472`, `net48`, `net481`, `net8.0-windows`, `net9.0-windows`, and `net10.0-windows`. The `net11.0-windows` preview target is enabled explicitly with `EnableDotNet11PreviewTargetFrameworks=true`. They are intended for Windows desktop processes and use Windows Forms/WPF-capable TFMs where required by the underlying operating-system feature.
 
 The implementation logs through Apache `log4net`. Libraries never configure appenders on the consumer's behalf. Configure the repository once in the application startup path when diagnostic output is required:
 

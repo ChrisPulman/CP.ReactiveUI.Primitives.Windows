@@ -1,5 +1,5 @@
-// Copyright (c) 2023-2026 Chris Pulman and Contributors. All rights reserved.
-// Chris Pulman and Contributors licenses this file to you under the MIT license.
+// Copyright (c) 2019-2026 Chris Pulman and contributors. All rights reserved.
+// Chris Pulman and contributors licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for full license information.
 
 using CP.ReactiveUI.Primitives.Windows.Integrations.Browser;
@@ -58,11 +58,19 @@ public sealed class CoverageWave3IntegrationsTailTests
             InternetExplorerVersion.ChangeEmbeddedVersion("coverage-browser-doctype", false);
             InternetExplorerVersion.ChangeEmbeddedVersion("coverage-browser-explicit", TenThousandOne);
 
+#if DEBUG
+            await Assert.That(registry.Writes.Count).IsEqualTo(Ten);
+            await Assert.That(registry.Writes[4].ValueName).IsEqualTo("coverage-browser.exe");
+            await Assert.That(registry.Writes[5].ValueName).IsEqualTo("coverage-browser.vshost.exe");
+            await Assert.That(registry.Writes[6].Value).IsEqualTo(ElevenThousand);
+            await Assert.That(registry.Writes[8].Value).IsEqualTo(TenThousandOne);
+#else
             await Assert.That(registry.Writes.Count).IsEqualTo(Five);
-            await Assert.That(registry.Writes[0].KeyName).Contains("FEATURE_BROWSER_EMULATION");
             await Assert.That(registry.Writes[2].ValueName).IsEqualTo("coverage-browser.exe");
             await Assert.That(registry.Writes[3].Value).IsEqualTo(ElevenThousand);
             await Assert.That(registry.Writes[4].Value).IsEqualTo(TenThousandOne);
+#endif
+            await Assert.That(registry.Writes[0].KeyName).Contains("FEATURE_BROWSER_EMULATION");
             await Assert.That(static () => InternetExplorerVersion.ExchangeRegistry(null)).Throws<ArgumentNullException>();
         }
         finally
