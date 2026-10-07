@@ -283,76 +283,19 @@ jobs:
           sleep 2
           DISPLAY=:99 xdpyinfo >/dev/null && echo "X display :99 up"
 
-      - name: Connect SimplySign
+      - name: Install signing control recognition tools
+        shell: bash
+        run: |
+          set -euo pipefail
+          apt-get update
+          apt-get install -y --no-install-recommends imagemagick tesseract-ocr tesseract-ocr-eng
+
+      - name: Connect SimplySign and verify initialized token
+        timeout-minutes: 5
         shell: bash
         env:
           DISPLAY: ':99'
-        run: |
-          set -euo pipefail
-          : "${CERTUM_USER_ID:?map the CERTUM_USER_ID secret into the job env}"
-          : "${CERTUM_OTP_URI:?map the CERTUM_OTP_URI secret into the job env}"
-
-          export USER="${USER:-root}"
-          cp "$SS_DIST/SimplySignDesktop.xml" "$HOME/" 2>/dev/null || true
-          mkdir -p "$HOME/.config"
-          {
-            echo "[General]"
-            echo "CacheUserIdAtLogon=Yes"
-            echo "ShowLogonDialogAfterApplicationStartup=Yes"
-            echo "ShowLogonDialogWhenAnyAppRequestsAccess=Yes"
-          } > "$HOME/.config/Unknown Organization.conf"
-
-          export LD_LIBRARY_PATH="$SS_DIST:${LD_LIBRARY_PATH:-}"
-          if [ -n "${SS_START:-}" ]; then
-            "$SS_START" >"$RUNNER_TEMP/simplysign.log" 2>&1 &
-          else
-            "$SS_EXE" >"$RUNNER_TEMP/simplysign.log" 2>&1 &
-          fi
-          sleep 20
-
-          OTP="$(python3 -c 'import os,hmac,hashlib,base64,struct,time;from urllib.parse import urlparse,parse_qs;q=parse_qs(urlparse(os.environ["CERTUM_OTP_URI"]).query);s=q["secret"][0];digits=int(q.get("digits",["6"])[0]);period=int(q.get("period",["30"])[0]);algo={"SHA1":hashlib.sha1,"SHA256":hashlib.sha256,"SHA512":hashlib.sha512}[q.get("algorithm",["SHA1"])[0].upper()];key=base64.b32decode(s+"="*((8-len(s)%8)%8));h=hmac.new(key,struct.pack(">Q",int(time.time()//period)),algo).digest();o=h[-1]&0xF;print(str((int.from_bytes(h[o:o+4],"big")&0x7fffffff)%(10**digits)).zfill(digits))')"
-          echo "::add-mask::$OTP"
-
-          WID=""; BX=0; BY=0; BW=0; BH=0
-          for attempt in $(seq 1 30); do
-            best=0; WID=""
-            for w in $(xdotool search --name '' 2>/dev/null); do
-              nm="$(xdotool getwindowname "$w" 2>/dev/null || true)"
-              case "$nm" in *implySign*) ;; *) continue ;; esac
-              eval "$(xdotool getwindowgeometry --shell "$w" 2>/dev/null)"
-              area=$(( ${WIDTH:-0} * ${HEIGHT:-0} ))
-              if [ "$area" -gt "$best" ]; then best=$area; WID=$w; BX=${X:-0}; BY=${Y:-0}; BW=${WIDTH:-0}; BH=${HEIGHT:-0}; fi
-            done
-            [ "${BW:-0}" -ge 400 ] && [ "${BH:-0}" -ge 300 ] && { echo "login window $WID ${BW}x${BH} (attempt $attempt)"; break; }
-            WID=""; sleep 2
-          done
-
-          [ -z "$WID" ] && { echo "::error::SimplySign login window did not appear"; cat "$RUNNER_TEMP/simplysign.log" || true; exit 1; }
-          xdotool windowactivate --sync "$WID" || xdotool windowactivate "$WID" || true
-          xdotool windowraise "$WID" || true
-          sleep 1
-
-          xdotool mousemove $((BX + BW/2)) $((BY + BH*39/100)) click 1; sleep 1
-          xdotool type --clearmodifiers --delay 50 "$CERTUM_USER_ID"
-          xdotool key Tab; sleep 1
-          xdotool type --clearmodifiers --delay 50 "$OTP"
-          xdotool mousemove $((BX + BW/2)) $((BY + BH*76/100)) click 1
-          sleep 8
-
-          best=0
-          for w in $(xdotool search --name '' 2>/dev/null); do
-            nm="$(xdotool getwindowname "$w" 2>/dev/null || true)"
-            case "$nm" in *implySign*) ;; *) continue ;; esac
-            eval "$(xdotool getwindowgeometry --shell "$w" 2>/dev/null)"
-            area=$(( ${WIDTH:-0} * ${HEIGHT:-0} ))
-            if [ "$area" -gt "$best" ]; then best=$area; WID=$w; BX=${X:-0}; BY=${Y:-0}; BW=${WIDTH:-0}; BH=${HEIGHT:-0}; fi
-          done
-          xdotool windowactivate --sync "$WID" || true
-          xdotool mousemove $((BX + BW/2)) $((BY + BH*94/100)) click 1
-          sleep 3
-
-          timeout 60 pkcs11-tool --module "$SS_PKCS11" -L
-
+        run: python3 .github/scripts/connect-simplysign.py
       - name: Sign packages with jsign
         shell: bash
         run: |
@@ -368,7 +311,7 @@ jobs:
           {
             echo "name = SimplySign"
             echo "library = $SS_PKCS11"
-            echo "slotListIndex = 0"
+            echo "slotListIndex = ${SS_SLOT_INDEX:?SimplySign token must be verified before signing}"
           } > "$CONF"
 
           expected_fingerprint="$(printf '%s' "$CERTUM_CERT_FINGERPRINT" | tr -d '[:space:]:')"
