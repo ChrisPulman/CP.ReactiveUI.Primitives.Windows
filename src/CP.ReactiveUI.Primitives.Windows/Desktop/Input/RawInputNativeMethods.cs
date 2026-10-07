@@ -40,7 +40,7 @@ internal static partial class RawInputNativeMethods
     /// <param name="numberOfDevices">The number of devices.</param>
     /// <param name="size">The size of each device registration.</param>
     /// <returns><see langword="true" /> when registration succeeds.</returns>
-    internal static bool RegisterRawInputDevices(RawInputDevice[] rawInputDevices, int numberOfDevices, int size) =>
+    internal static bool RegisterRawInputDevices(NativeRawInputDevice[] rawInputDevices, int numberOfDevices, int size) =>
         NativeMethods.RegisterRawInputDevices(rawInputDevices, numberOfDevices, size);
 
     /// <summary>Gets raw input data for a raw input message handle.</summary>
@@ -105,12 +105,12 @@ internal static partial class RawInputNativeMethods
         [DllImport("user32", SetLastError = true)]
         [DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        internal static extern bool RegisterRawInputDevices([In][MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] RawInputDevice[] rawInputDevices, int numberOfDevices, int size);
+        internal static extern bool RegisterRawInputDevices([In][MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] NativeRawInputDevice[] rawInputDevices, int numberOfDevices, int size);
 #else
         [LibraryImport("user32", SetLastError = true)]
         [DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        internal static partial bool RegisterRawInputDevices([In][MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] RawInputDevice[] rawInputDevices, int numberOfDevices, int size);
+        internal static partial bool RegisterRawInputDevices([In][MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] NativeRawInputDevice[] rawInputDevices, int numberOfDevices, int size);
 #endif
 
         /// <summary>Gets raw input data for a raw input message handle.</summary>

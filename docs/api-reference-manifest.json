@@ -34125,7 +34125,7 @@
       "namespace": "CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Input",
       "id": "M:CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Input.RawInputMonitor.ObserveRawInput(CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Input.Enums.RawInputDevices[])",
       "signature": "public static System.IObservable\u003CCP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Input.RawInputEventArgs\u003E CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Input.RawInputMonitor.ObserveRawInput(params CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Input.Enums.RawInputDevices[] devices)",
-      "source": "src/CP.ReactiveUI.Primitives.Windows/Desktop/Input/RawInputMonitor.cs:23",
+      "source": "src/CP.ReactiveUI.Primitives.Windows/Desktop/Input/RawInputMonitor.cs:25",
       "targets": [
         "net10.0-windows",
         "net462",
@@ -37609,7 +37609,7 @@
       "namespace": "CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Messaging",
       "id": "M:CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Messaging.SharedMessageWindow.ObserveHandleChanges",
       "signature": "public static System.IObservable\u003Clong\u003E CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Messaging.SharedMessageWindow.ObserveHandleChanges()",
-      "source": "src/CP.ReactiveUI.Primitives.Windows/Desktop/Messaging/SharedMessageWindow.cs:86",
+      "source": "src/CP.ReactiveUI.Primitives.Windows/Desktop/Messaging/SharedMessageWindow.cs:89",
       "targets": [
         "net10.0-windows",
         "net462",
@@ -37626,7 +37626,7 @@
       "namespace": "CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Messaging",
       "id": "M:CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Messaging.SharedMessageWindow.ObserveWindowMessages(System.Action{System.Int64},System.Action{System.Int64})",
       "signature": "public static System.IObservable\u003CCP.ReactiveUI.Primitives.Windows.Desktop.Messaging.Structs.WindowMessage\u003E CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Messaging.SharedMessageWindow.ObserveWindowMessages(System.Action\u003Clong\u003E onSetup, System.Action\u003Clong\u003E onTeardown)",
-      "source": "src/CP.ReactiveUI.Primitives.Windows/Desktop/Messaging/SharedMessageWindow.cs:98",
+      "source": "src/CP.ReactiveUI.Primitives.Windows/Desktop/Messaging/SharedMessageWindow.cs:101",
       "targets": [
         "net10.0-windows",
         "net462",
@@ -37643,7 +37643,7 @@
       "namespace": "CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Messaging",
       "id": "M:CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Messaging.SharedMessageWindow.ObserveWindowMessages",
       "signature": "public static System.IObservable\u003CCP.ReactiveUI.Primitives.Windows.Desktop.Messaging.Structs.WindowMessage\u003E CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Messaging.SharedMessageWindow.ObserveWindowMessages()",
-      "source": "src/CP.ReactiveUI.Primitives.Windows/Desktop/Messaging/SharedMessageWindow.cs:90",
+      "source": "src/CP.ReactiveUI.Primitives.Windows/Desktop/Messaging/SharedMessageWindow.cs:93",
       "targets": [
         "net10.0-windows",
         "net462",
@@ -49935,7 +49935,7 @@
       "namespace": "CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Messaging",
       "id": "P:CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Messaging.SharedMessageWindow.Handle",
       "signature": "public static long CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Messaging.SharedMessageWindow.Handle { get; }",
-      "source": "src/CP.ReactiveUI.Primitives.Windows/Desktop/Messaging/SharedMessageWindow.cs:57",
+      "source": "src/CP.ReactiveUI.Primitives.Windows/Desktop/Messaging/SharedMessageWindow.cs:60",
       "targets": [
         "net10.0-windows",
         "net462",
@@ -49952,7 +49952,7 @@
       "namespace": "CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Messaging",
       "id": "P:CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Messaging.SharedMessageWindow.WindowMessageEvents",
       "signature": "public static System.IObservable\u003CCP.ReactiveUI.Primitives.Windows.Desktop.Messaging.Structs.WindowMessage\u003E CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Messaging.SharedMessageWindow.WindowMessageEvents { get; }",
-      "source": "src/CP.ReactiveUI.Primitives.Windows/Desktop/Messaging/SharedMessageWindow.cs:63",
+      "source": "src/CP.ReactiveUI.Primitives.Windows/Desktop/Messaging/SharedMessageWindow.cs:66",
       "targets": [
         "net10.0-windows",
         "net462",
@@ -65926,7 +65926,7 @@
       "namespace": "CP.ReactiveUI.Primitives.Windows.Desktop.Input",
       "id": "M:CP.ReactiveUI.Primitives.Windows.Desktop.Input.RawInputMonitor.ObserveRawInput(CP.ReactiveUI.Primitives.Windows.Desktop.Input.Enums.RawInputDevices[])",
       "signature": "public static System.IObservable\u003CCP.ReactiveUI.Primitives.Windows.Desktop.Input.RawInputEventArgs\u003E CP.ReactiveUI.Primitives.Windows.Desktop.Input.RawInputMonitor.ObserveRawInput(params CP.ReactiveUI.Primitives.Windows.Desktop.Input.Enums.RawInputDevices[] devices)",
-      "source": "src/CP.ReactiveUI.Primitives.Windows/Desktop/Input/RawInputMonitor.cs:23",
+      "source": "src/CP.ReactiveUI.Primitives.Windows/Desktop/Input/RawInputMonitor.cs:25",
       "targets": [
         "net10.0-windows",
         "net462",
@@ -69410,7 +69410,7 @@
       "namespace": "CP.ReactiveUI.Primitives.Windows.Desktop.Messaging",
       "id": "M:CP.ReactiveUI.Primitives.Windows.Desktop.Messaging.SharedMessageWindow.ObserveHandleChanges",
       "signature": "public static System.IObservable\u003Clong\u003E CP.ReactiveUI.Primitives.Windows.Desktop.Messaging.SharedMessageWindow.ObserveHandleChanges()",
-      "source": "src/CP.ReactiveUI.Primitives.Windows/Desktop/Messaging/SharedMessageWindow.cs:86",
+      "source": "src/CP.ReactiveUI.Primitives.Windows/Desktop/Messaging/SharedMessageWindow.cs:89",
       "targets": [
         "net10.0-windows",
         "net462",
@@ -69427,7 +69427,7 @@
       "namespace": "CP.ReactiveUI.Primitives.Windows.Desktop.Messaging",
       "id": "M:CP.ReactiveUI.Primitives.Windows.Desktop.Messaging.SharedMessageWindow.ObserveWindowMessages(System.Action{System.Int64},System.Action{System.Int64})",
       "signature": "public static System.IObservable\u003CCP.ReactiveUI.Primitives.Windows.Desktop.Messaging.Structs.WindowMessage\u003E CP.ReactiveUI.Primitives.Windows.Desktop.Messaging.SharedMessageWindow.ObserveWindowMessages(System.Action\u003Clong\u003E onSetup, System.Action\u003Clong\u003E onTeardown)",
-      "source": "src/CP.ReactiveUI.Primitives.Windows/Desktop/Messaging/SharedMessageWindow.cs:98",
+      "source": "src/CP.ReactiveUI.Primitives.Windows/Desktop/Messaging/SharedMessageWindow.cs:101",
       "targets": [
         "net10.0-windows",
         "net462",
@@ -69444,7 +69444,7 @@
       "namespace": "CP.ReactiveUI.Primitives.Windows.Desktop.Messaging",
       "id": "M:CP.ReactiveUI.Primitives.Windows.Desktop.Messaging.SharedMessageWindow.ObserveWindowMessages",
       "signature": "public static System.IObservable\u003CCP.ReactiveUI.Primitives.Windows.Desktop.Messaging.Structs.WindowMessage\u003E CP.ReactiveUI.Primitives.Windows.Desktop.Messaging.SharedMessageWindow.ObserveWindowMessages()",
-      "source": "src/CP.ReactiveUI.Primitives.Windows/Desktop/Messaging/SharedMessageWindow.cs:90",
+      "source": "src/CP.ReactiveUI.Primitives.Windows/Desktop/Messaging/SharedMessageWindow.cs:93",
       "targets": [
         "net10.0-windows",
         "net462",
@@ -81736,7 +81736,7 @@
       "namespace": "CP.ReactiveUI.Primitives.Windows.Desktop.Messaging",
       "id": "P:CP.ReactiveUI.Primitives.Windows.Desktop.Messaging.SharedMessageWindow.Handle",
       "signature": "public static long CP.ReactiveUI.Primitives.Windows.Desktop.Messaging.SharedMessageWindow.Handle { get; }",
-      "source": "src/CP.ReactiveUI.Primitives.Windows/Desktop/Messaging/SharedMessageWindow.cs:57",
+      "source": "src/CP.ReactiveUI.Primitives.Windows/Desktop/Messaging/SharedMessageWindow.cs:60",
       "targets": [
         "net10.0-windows",
         "net462",
@@ -81753,7 +81753,7 @@
       "namespace": "CP.ReactiveUI.Primitives.Windows.Desktop.Messaging",
       "id": "P:CP.ReactiveUI.Primitives.Windows.Desktop.Messaging.SharedMessageWindow.WindowMessageEvents",
       "signature": "public static System.IObservable\u003CCP.ReactiveUI.Primitives.Windows.Desktop.Messaging.Structs.WindowMessage\u003E CP.ReactiveUI.Primitives.Windows.Desktop.Messaging.SharedMessageWindow.WindowMessageEvents { get; }",
-      "source": "src/CP.ReactiveUI.Primitives.Windows/Desktop/Messaging/SharedMessageWindow.cs:63",
+      "source": "src/CP.ReactiveUI.Primitives.Windows/Desktop/Messaging/SharedMessageWindow.cs:66",
       "targets": [
         "net10.0-windows",
         "net462",

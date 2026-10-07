@@ -23,8 +23,17 @@ internal sealed class WindowsRawInputNativeApi : IRawInputNativeApi
         RawInputNativeMethods.GetRawInputDeviceInfo(deviceHandle, command, deviceName, ref dataSize);
 
     /// <inheritdoc />
-    public bool RegisterRawInputDevices(RawInputDevice[] rawInputDevices, int numberOfDevices, int size) =>
-        RawInputNativeMethods.RegisterRawInputDevices(rawInputDevices, numberOfDevices, size);
+    public bool RegisterRawInputDevices(RawInputDevice[] rawInputDevices, int numberOfDevices, int size)
+    {
+        _ = size;
+        var nativeDevices = new NativeRawInputDevice[numberOfDevices];
+        for (var index = 0; index < nativeDevices.Length; index++)
+        {
+            nativeDevices[index] = new(rawInputDevices[index]);
+        }
+
+        return RawInputNativeMethods.RegisterRawInputDevices(nativeDevices, numberOfDevices, Marshal.SizeOf<NativeRawInputDevice>());
+    }
 
     /// <inheritdoc />
     public unsafe int GetRawInputData(IntPtr rawInputHandle, RawInputDataCommands command, ref RawInput data, ref int size, int headerSize)
