@@ -49,54 +49,21 @@ public static class RawInputDeviceMonitor
             return _rawInputDeviceObservable;
         }
 
-        Func<IObserver<RawInputDeviceChangeEventArgs>, IDisposable> createObservable = observer =>
+        _rawInputDeviceObservable = ReactiveSignal.CreateSafe<RawInputDeviceChangeEventArgs>(observer =>
         {
-            var messageSubscription = RawInputMonitor.Infrastructure.MessageSource.Messages
-                .Where(static windowsMessage => windowsMessage.Msg == WindowsMessages.WM_INPUT_DEVICE_CHANGE)
-                .Subscribe(windowsMessage =>
-            {
-                windowsMessage.Handled = true;
-                var flag = checked((int)windowsMessage.WParam) == 1;
-                IntPtr intPtr = new(windowsMessage.LParam);
-                lock (SyncRoot)
-                {
-                    RawInputDeviceInformation value;
-                    if (flag)
-                    {
-                        value = RawInputApi.GetDeviceInformation(intPtr);
-                        DeviceCache[intPtr] = value;
-                    }
-                    else if (!DeviceCache.TryGetValue(intPtr, out value))
-                    {
-                        value = new RawInputDeviceInformation { Handle = intPtr };
-                    }
-
-                    Notify(observer, new RawInputDeviceChangeEventArgs { Added = flag, DeviceInformation = value });
-                    if (!flag)
-                    {
-                        _ = DeviceCache.Remove(intPtr);
-                    }
-                }
-            });
+            var source = RawInputMonitor.Infrastructure.MessageSource;
             lock (SyncRoot)
             {
                 RefreshDeviceCache();
             }
 
-            var registrationSubscription = (from windowHandle in RawInputMonitor.Infrastructure.MessageSource.ObserveHandleChanges()
-                                                    where windowHandle != 0
-                                                    select windowHandle).Take(1).Subscribe(windowHandle =>
-                                                {
-                                                    RawInputApi.RegisterRawInput((nint)windowHandle, RawInputDeviceFlags.DeviceNotify, devices);
-                                                });
-            return new ActionDisposable(() =>
-            {
-                _rawInputDeviceObservable = null;
-                registrationSubscription.Dispose();
-                messageSubscription.Dispose();
-            });
-        };
-        _rawInputDeviceObservable = ReactiveSignal.CreateSafe(createObservable).Publish().RefCount();
+            return RawInputMonitor.CreateObservation(
+                source,
+                WindowsMessages.WM_INPUT_DEVICE_CHANGE,
+                handle => RawInputApi.RegisterRawInput((nint)handle, RawInputDeviceFlags.DeviceNotify, devices),
+                ReadDeviceChange,
+                static () => _rawInputDeviceObservable = null).Subscribe(observer);
+        }).Publish().RefCount();
         return _rawInputDeviceObservable;
     }
 
@@ -110,10 +77,34 @@ public static class RawInputDeviceMonitor
         }
     }
 
-    /// <summary>Forwards a raw-input device event to an observer.</summary>
-    /// <param name="observer">The observer receiving the event.</param>
-    /// <param name="eventArgs">The raw-input device event data.</param>
-    private static void Notify(IObserver<RawInputDeviceChangeEventArgs> observer, RawInputDeviceChangeEventArgs eventArgs) => observer.OnNext(eventArgs);
+    /// <summary>Reads a device change and updates the device cache.</summary>
+    /// <param name="message">The native device notification.</param>
+    /// <returns>The materialized device change.</returns>
+    private static RawInputDeviceChangeEventArgs ReadDeviceChange(WindowMessage message)
+    {
+        var added = checked((int)message.WParam) == 1;
+        IntPtr handle = new(message.LParam);
+        lock (SyncRoot)
+        {
+            RawInputDeviceInformation value;
+            if (added)
+            {
+                value = RawInputApi.GetDeviceInformation(handle);
+                DeviceCache[handle] = value;
+            }
+            else if (!DeviceCache.TryGetValue(handle, out value))
+            {
+                value = new RawInputDeviceInformation { Handle = handle };
+            }
+
+            if (!added)
+            {
+                _ = DeviceCache.Remove(handle);
+            }
+
+            return new RawInputDeviceChangeEventArgs { Added = added, DeviceInformation = value };
+        }
+    }
 
     /// <summary>Refreshes the device cache from the operating system.</summary>
     private static void RefreshDeviceCache()

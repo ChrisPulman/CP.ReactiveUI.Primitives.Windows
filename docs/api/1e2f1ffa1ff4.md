@@ -1,0 +1,202 @@
+<!-- GENERATED PUBLIC API REFERENCE: tools/generate-api-reference.cs -->
+
+# CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Devices.Structs.DevBroadcastPort
+
+Package: `CP.ReactiveUI.Primitives.Windows.Reactive`. [API index](../api-reference-generated.md).
+
+## Callable members
+
+- [M:CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Devices.Structs.DevBroadcastPort.#ctor](#api-f66812349126)
+- [M:CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Devices.Structs.DevBroadcastPort.Create](#api-3d9711385a91)
+- [M:CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Devices.Structs.DevBroadcastPort.Equals(CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Devices.Structs.DevBroadcastPort)](#api-947ff388b8d9)
+- [M:CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Devices.Structs.DevBroadcastPort.Equals(System.Object)](#api-a5f376972908)
+- [M:CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Devices.Structs.DevBroadcastPort.GetHashCode](#api-679e69115914)
+- [M:CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Devices.Structs.DevBroadcastPort.op_Equality(CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Devices.Structs.DevBroadcastPort,CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Devices.Structs.DevBroadcastPort)](#api-f20409ff441d)
+- [M:CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Devices.Structs.DevBroadcastPort.op_Inequality(CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Devices.Structs.DevBroadcastPort,CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Devices.Structs.DevBroadcastPort)](#api-629242dd7235)
+- [P:CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Devices.Structs.DevBroadcastPort.Name](#api-9c6673807cf5)
+
+<a id="api-f66812349126"></a>
+
+## `M:CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Devices.Structs.DevBroadcastPort.#ctor`
+
+Creates the default DevBroadcastPort value.
+
+```csharp
+public CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Devices.Structs.DevBroadcastPort.DevBroadcastPort()
+```
+
+Availability: net10.0-windows, net462, net472, net48, net481, net8.0-windows, net9.0-windows. Source: `src/CP.ReactiveUI.Primitives.Windows/Desktop/Devices/Structs/DevBroadcastPort.cs:15`.
+
+```csharp
+internal static class ApiExample
+{
+    internal static void Call()
+    {
+        new global::CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Devices.Structs.DevBroadcastPort();
+    }
+}
+```
+
+<a id="api-3d9711385a91"></a>
+
+## `M:CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Devices.Structs.DevBroadcastPort.Create`
+
+Factory for an empty DevBroadcastPort.
+
+```csharp
+public static CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Devices.Structs.DevBroadcastPort CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Devices.Structs.DevBroadcastPort.Create()
+```
+
+Availability: net10.0-windows, net462, net472, net48, net481, net8.0-windows, net9.0-windows. Source: `src/CP.ReactiveUI.Primitives.Windows/Desktop/Devices/Structs/DevBroadcastPort.cs:64`.
+
+```csharp
+internal static class ApiExample
+{
+    internal static global::System.IDisposable Call(global::System.IObserver<global::CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Devices.Structs.DevBroadcastPort> operationObserver)
+    {
+        return global::CP.ReactiveUI.Primitives.Windows.Operations.WindowsOperation.From(() => global::CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Devices.Structs.DevBroadcastPort.@Create()).Select(value => value).Observe().Subscribe(operationObserver);
+    }
+}
+```
+
+<a id="api-947ff388b8d9"></a>
+
+## `M:CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Devices.Structs.DevBroadcastPort.Equals(CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Devices.Structs.DevBroadcastPort)`
+
+Indicates whether the current object is equal to another object of the same type.
+
+```csharp
+public bool CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Devices.Structs.DevBroadcastPort.Equals(CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Devices.Structs.DevBroadcastPort other)
+```
+
+Availability: net10.0-windows, net462, net472, net48, net481, net8.0-windows, net9.0-windows. Source: `src/CP.ReactiveUI.Primitives.Windows/Desktop/Devices/Structs/DevBroadcastPort.cs:70`.
+
+- `other` (`CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Devices.Structs.DevBroadcastPort`): An object to compare with this object.
+
+```csharp
+internal static class ApiExample
+{
+    internal static global::System.IDisposable Call(global::CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Devices.Structs.DevBroadcastPort receiver, global::CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Devices.Structs.DevBroadcastPort @other, global::System.IObserver<global::System.Boolean> operationObserver)
+    {
+        return global::CP.ReactiveUI.Primitives.Windows.Operations.WindowsOperation.From(() => receiver.@Equals(@other)).Select(value => value).Observe().Subscribe(operationObserver);
+    }
+}
+```
+
+<a id="api-a5f376972908"></a>
+
+## `M:CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Devices.Structs.DevBroadcastPort.Equals(System.Object)`
+
+Indicates whether this instance and a specified object are equal.
+
+```csharp
+public override bool CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Devices.Structs.DevBroadcastPort.Equals(object obj)
+```
+
+Availability: net10.0-windows, net462, net472, net48, net481, net8.0-windows, net9.0-windows. Source: `src/CP.ReactiveUI.Primitives.Windows/Desktop/Devices/Structs/DevBroadcastPort.cs:67`.
+
+- `obj` (`object`): The object to compare with the current instance.
+
+```csharp
+internal static class ApiExample
+{
+    internal static global::System.IDisposable Call(global::CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Devices.Structs.DevBroadcastPort receiver, global::System.Object @obj, global::System.IObserver<global::System.Boolean> operationObserver)
+    {
+        return global::CP.ReactiveUI.Primitives.Windows.Operations.WindowsOperation.From(() => receiver.@Equals(@obj)).Select(value => value).Observe().Subscribe(operationObserver);
+    }
+}
+```
+
+<a id="api-679e69115914"></a>
+
+## `M:CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Devices.Structs.DevBroadcastPort.GetHashCode`
+
+Returns the hash code for this instance.
+
+```csharp
+public override int CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Devices.Structs.DevBroadcastPort.GetHashCode()
+```
+
+Availability: net10.0-windows, net462, net472, net48, net481, net8.0-windows, net9.0-windows. Source: `src/CP.ReactiveUI.Primitives.Windows/Desktop/Devices/Structs/DevBroadcastPort.cs:77`.
+
+```csharp
+internal static class ApiExample
+{
+    internal static global::System.IDisposable Call(global::CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Devices.Structs.DevBroadcastPort receiver, global::System.IObserver<global::System.Int32> operationObserver)
+    {
+        return global::CP.ReactiveUI.Primitives.Windows.Operations.WindowsOperation.From(() => receiver.@GetHashCode()).Select(value => value).Observe().Subscribe(operationObserver);
+    }
+}
+```
+
+<a id="api-f20409ff441d"></a>
+
+## `M:CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Devices.Structs.DevBroadcastPort.op_Equality(CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Devices.Structs.DevBroadcastPort,CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Devices.Structs.DevBroadcastPort)`
+
+Compares two values for equality.
+
+```csharp
+public static bool CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Devices.Structs.DevBroadcastPort.operator ==(CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Devices.Structs.DevBroadcastPort left, CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Devices.Structs.DevBroadcastPort right)
+```
+
+Availability: net10.0-windows, net462, net472, net48, net481, net8.0-windows, net9.0-windows. Source: `src/CP.ReactiveUI.Primitives.Windows/Desktop/Devices/Structs/DevBroadcastPort.cs:48`.
+
+- `left` (`CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Devices.Structs.DevBroadcastPort`): The left value.
+- `right` (`CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Devices.Structs.DevBroadcastPort`): The right value.
+
+```csharp
+internal static class ApiExample
+{
+    internal static void Call(global::CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Devices.Structs.DevBroadcastPort @left, global::CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Devices.Structs.DevBroadcastPort @right)
+    {
+        _ = @left == @right;
+    }
+}
+```
+
+<a id="api-629242dd7235"></a>
+
+## `M:CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Devices.Structs.DevBroadcastPort.op_Inequality(CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Devices.Structs.DevBroadcastPort,CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Devices.Structs.DevBroadcastPort)`
+
+Compares two values for inequality.
+
+```csharp
+public static bool CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Devices.Structs.DevBroadcastPort.operator !=(CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Devices.Structs.DevBroadcastPort left, CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Devices.Structs.DevBroadcastPort right)
+```
+
+Availability: net10.0-windows, net462, net472, net48, net481, net8.0-windows, net9.0-windows. Source: `src/CP.ReactiveUI.Primitives.Windows/Desktop/Devices/Structs/DevBroadcastPort.cs:57`.
+
+- `left` (`CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Devices.Structs.DevBroadcastPort`): The left value.
+- `right` (`CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Devices.Structs.DevBroadcastPort`): The right value.
+
+```csharp
+internal static class ApiExample
+{
+    internal static void Call(global::CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Devices.Structs.DevBroadcastPort @left, global::CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Devices.Structs.DevBroadcastPort @right)
+    {
+        _ = @left != @right;
+    }
+}
+```
+
+<a id="api-9c6673807cf5"></a>
+
+## `P:CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Devices.Structs.DevBroadcastPort.Name`
+
+Gets the name of the device.
+
+```csharp
+public string CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Devices.Structs.DevBroadcastPort.Name { get; }
+```
+
+Availability: net10.0-windows, net462, net472, net48, net481, net8.0-windows, net9.0-windows. Source: `src/CP.ReactiveUI.Primitives.Windows/Desktop/Devices/Structs/DevBroadcastPort.cs:42`.
+
+```csharp
+internal static class ApiExample
+{
+    internal static void Call(global::CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Devices.Structs.DevBroadcastPort receiver)
+    {
+        _ = receiver.@Name;
+    }
+}
+```

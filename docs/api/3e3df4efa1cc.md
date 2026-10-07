@@ -1,0 +1,77 @@
+<!-- GENERATED PUBLIC API REFERENCE: tools/generate-api-reference.cs -->
+
+# CP.ReactiveUI.Primitives.Windows.Desktop.SystemMonitoring.ThermalSnapshot
+
+Package: `CP.ReactiveUI.Primitives.Windows`. [API index](../api-reference-generated.md).
+
+## Callable members
+
+- [P:CP.ReactiveUI.Primitives.Windows.Desktop.SystemMonitoring.ThermalSnapshot.Sensors](#api-24c49a1c5932)
+- [P:CP.ReactiveUI.Primitives.Windows.Desktop.SystemMonitoring.ThermalSnapshot.ThermalZones](#api-373d22d80367)
+- [P:CP.ReactiveUI.Primitives.Windows.Desktop.SystemMonitoring.ThermalSnapshot.Timestamp](#api-9ee402b6fc9d)
+
+<a id="api-24c49a1c5932"></a>
+
+## `P:CP.ReactiveUI.Primitives.Windows.Desktop.SystemMonitoring.ThermalSnapshot.Sensors`
+
+Gets thermal-zone temperatures and vendor readings with explicit availability.
+
+```csharp
+public System.Collections.Generic.IReadOnlyList<CP.ReactiveUI.Primitives.Windows.Desktop.SystemMonitoring.ThermalSensorSample> CP.ReactiveUI.Primitives.Windows.Desktop.SystemMonitoring.ThermalSnapshot.Sensors { get; }
+```
+
+Availability: net10.0-windows, net462, net472, net48, net481, net8.0-windows, net9.0-windows. Source: `src/CP.ReactiveUI.Primitives.Windows/Desktop/SystemMonitoring/ThermalSnapshot.cs:32`.
+
+```csharp
+internal static class ApiExample
+{
+    internal static void Call(global::CP.ReactiveUI.Primitives.Windows.Desktop.SystemMonitoring.ThermalSnapshot receiver)
+    {
+        _ = receiver.@Sensors;
+    }
+}
+```
+
+<a id="api-373d22d80367"></a>
+
+## `P:CP.ReactiveUI.Primitives.Windows.Desktop.SystemMonitoring.ThermalSnapshot.ThermalZones`
+
+Gets the root/WMI thermal-zone query availability and detached raw properties.
+
+```csharp
+public CP.ReactiveUI.Primitives.Windows.Desktop.SystemMonitoring.WmiQueryResult CP.ReactiveUI.Primitives.Windows.Desktop.SystemMonitoring.ThermalSnapshot.ThermalZones { get; }
+```
+
+Availability: net10.0-windows, net462, net472, net48, net481, net8.0-windows, net9.0-windows. Source: `src/CP.ReactiveUI.Primitives.Windows/Desktop/SystemMonitoring/ThermalSnapshot.cs:29`.
+
+```csharp
+internal static class ApiExample
+{
+    internal static void Call(global::CP.ReactiveUI.Primitives.Windows.Desktop.SystemMonitoring.ThermalSnapshot receiver)
+    {
+        _ = receiver.@ThermalZones;
+    }
+}
+```
+
+<a id="api-9ee402b6fc9d"></a>
+
+## `P:CP.ReactiveUI.Primitives.Windows.Desktop.SystemMonitoring.ThermalSnapshot.Timestamp`
+
+Gets UTC capture time.
+
+```csharp
+public System.DateTimeOffset CP.ReactiveUI.Primitives.Windows.Desktop.SystemMonitoring.ThermalSnapshot.Timestamp { get; }
+```
+
+Availability: net10.0-windows, net462, net472, net48, net481, net8.0-windows, net9.0-windows. Source: `src/CP.ReactiveUI.Primitives.Windows/Desktop/SystemMonitoring/ThermalSnapshot.cs:26`.
+
+```csharp
+internal static class ApiExample
+{
+    internal static void Call(global::CP.ReactiveUI.Primitives.Windows.Desktop.SystemMonitoring.ThermalSnapshot receiver)
+    {
+        _ = receiver.@Timestamp;
+    }
+}
+```

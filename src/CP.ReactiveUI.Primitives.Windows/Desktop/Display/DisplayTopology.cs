@@ -2,6 +2,8 @@
 // Chris Pulman and contributors licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for full license information.
 
+using DisplaySubscriptionSlot = global::ReactiveUI.Primitives.Disposables.AssignmentSlot;
+
 #if REACTIVE_SHIM
 namespace CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Display;
 #else
@@ -85,10 +87,27 @@ public static class DisplayTopology
     /// <returns>A stream containing the current and subsequent display snapshots.</returns>
     internal static IObservable<IReadOnlyList<DisplayInfo>> ObserveChangesCore(
         IObservable<WindowMessage> windowMessages,
-        Func<IReadOnlyList<DisplayInfo>> snapshotProvider) =>
-        (from message in windowMessages
-         where message.Msg == WindowsMessages.WM_DISPLAYCHANGE
-         select snapshotProvider()).StartWith(snapshotProvider());
+        Func<IReadOnlyList<DisplayInfo>> snapshotProvider)
+    {
+        Throw.IfNull(windowMessages);
+        Throw.IfNull(snapshotProvider);
+        return ReactiveSignal.CreateSafe<IReadOnlyList<DisplayInfo>>(observer =>
+        {
+            var subscription = new TopologyObserver(observer, snapshotProvider);
+            try
+            {
+                subscription.Assign(windowMessages.Subscribe(subscription));
+            }
+            catch
+            {
+                subscription.Dispose();
+                throw;
+            }
+
+            subscription.Capture();
+            return subscription;
+        });
+    }
 
     /// <summary>Exchanges topology sources for deterministic tests.</summary>
     /// <param name="windowMessages">The replacement message-source factory.</param>
@@ -107,5 +126,78 @@ public static class DisplayTopology
         return Scope.Create(
             Tuple.Create(previousWindowMessages, previousSnapshotProvider),
             static previous => (_windowMessages, _snapshotProvider) = (previous.Item1, previous.Item2));
+    }
+
+    /// <summary>Owns serialized topology messages and terminates their subscription when snapshot retrieval fails.</summary>
+    /// <param name="observer">The snapshot observer.</param>
+    /// <param name="snapshotProvider">The current snapshot query.</param>
+    private sealed class TopologyObserver(IObserver<IReadOnlyList<DisplayInfo>> observer, Func<IReadOnlyList<DisplayInfo>> snapshotProvider)
+        : IObserver<WindowMessage>, IDisposable
+    {
+        /// <summary>Owns source disposal, including assignments after synchronous termination.</summary>
+        private readonly DisplaySubscriptionSlot _upstream = new();
+
+        /// <summary>Assigns ownership after attaching the message source.</summary>
+        /// <param name="subscription">The source subscription.</param>
+        public void Assign(IDisposable subscription) => _upstream.Create(subscription);
+
+        /// <summary>Reads and publishes a snapshot while the source remains attached.</summary>
+        public void Capture()
+        {
+            if (_upstream.IsDisposed)
+            {
+                return;
+            }
+
+            IReadOnlyList<DisplayInfo> snapshot;
+            try
+            {
+                snapshot = snapshotProvider();
+            }
+            catch (Exception error)
+            {
+                OnError(error);
+                return;
+            }
+
+            if (!_upstream.IsDisposed)
+            {
+                observer.OnNext(snapshot);
+            }
+        }
+
+        /// <summary>Captures a new snapshot for a topology change message.</summary>
+        /// <param name="value">The source window message.</param>
+        public void OnNext(WindowMessage value)
+        {
+            if (value.Msg == WindowsMessages.WM_DISPLAYCHANGE)
+            {
+                Capture();
+            }
+        }
+
+        /// <summary>Releases message ownership and reports a source or snapshot failure.</summary>
+        /// <param name="error">The failure.</param>
+        public void OnError(Exception error)
+        {
+            if (!_upstream.IsDisposed)
+            {
+                Dispose();
+                observer.OnError(error);
+            }
+        }
+
+        /// <summary>Releases message ownership and completes snapshot observation.</summary>
+        public void OnCompleted()
+        {
+            if (!_upstream.IsDisposed)
+            {
+                Dispose();
+                observer.OnCompleted();
+            }
+        }
+
+        /// <summary>Releases the source subscription once.</summary>
+        public void Dispose() => _upstream.Dispose();
     }
 }

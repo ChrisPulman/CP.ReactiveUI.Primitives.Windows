@@ -35,6 +35,9 @@ public static class SharedMessageWindow
     /// <summary>Publishes the current message window handle.</summary>
     private static readonly BehaviorSignal<nint> HandleSubject = new((IntPtr)0);
 
+    /// <summary>Rejects handle publications from retired message-loop generations.</summary>
+    private static readonly MessageWindowHandleState HandleState = new(HandleSubject.OnNext);
+
     /// <summary>The optional message stream override used by deterministic tests.</summary>
     private static IObservable<WindowMessage> _messageStreamOverride;
 
@@ -197,6 +200,7 @@ public static class SharedMessageWindow
     private static IDisposable CreateMessageSubscription(IObserver<WindowMessage> observer)
     {
         MessageSubscriptionState state = new(observer, $"MsgLoop_{Guid.NewGuid():N}");
+        HandleState.Activate(state);
         Thread thread = new(static threadState =>
         {
             RunMessageLoop((MessageSubscriptionState)threadState);
@@ -237,7 +241,6 @@ public static class SharedMessageWindow
         if (windowHandle != 0)
         {
             state.SetWindowHandle(windowHandle);
-            HandleSubject.OnNext(windowHandle);
         }
         while (MessageLoop.TryGetMessage(out var message))
         {
@@ -246,9 +249,10 @@ public static class SharedMessageWindow
 
         if (windowHandle != 0)
         {
-            HandleSubject.OnNext((IntPtr)0);
             state.SetWindowHandle(0);
         }
+
+        HandleState.Release(state);
 
         _ = NativeMethods.UnregisterClass(className, instanceHandle);
         GC.KeepAlive(windowProcedure);
@@ -690,8 +694,8 @@ public static class SharedMessageWindow
     /// <param name="className">The window class name.</param>
     private sealed class MessageSubscriptionState(IObserver<WindowMessage> observer, string className)
     {
-        /// <summary>The message used to destroy the message-only window.</summary>
-        private const uint DestroyMessage = 2U;
+        /// <summary>Requests native window destruction through the owning window procedure.</summary>
+        private const uint CloseMessage = 16U;
 
         /// <summary>Synchronizes message-window lifecycle state.</summary>
 #if NET9_0_OR_GREATER
@@ -712,19 +716,26 @@ public static class SharedMessageWindow
         /// <summary>Gets the window class name.</summary>
         public string ClassName { get; } = className;
 
-        /// <summary>Posts the destroy message to the owned message window.</summary>
+        /// <summary>Requests closure of the owned window on its message-loop thread.</summary>
         public void DisposeCore()
         {
             nint windowHandle;
             lock (_windowHandleLock)
             {
+                if (_disposeRequested)
+                {
+                    return;
+                }
+
                 _disposeRequested = true;
                 windowHandle = _windowHandle;
             }
 
+            HandleState.Release(this);
+
             if (windowHandle != 0)
             {
-                _ = NativeMethods.PostMessage(windowHandle, DestroyMessage, 0, 0);
+                _ = NativeMethods.PostMessage(windowHandle, CloseMessage, 0, 0);
             }
         }
 
@@ -741,7 +752,11 @@ public static class SharedMessageWindow
 
             if (shouldDestroy)
             {
-                _ = NativeMethods.PostMessage(windowHandle, DestroyMessage, 0, 0);
+                _ = NativeMethods.PostMessage(windowHandle, CloseMessage, 0, 0);
+            }
+            else if (windowHandle != 0)
+            {
+                HandleState.Publish(this, windowHandle);
             }
         }
     }
