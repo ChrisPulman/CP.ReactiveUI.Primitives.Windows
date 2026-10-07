@@ -1,0 +1,31 @@
+<!-- GENERATED PUBLIC API REFERENCE: tools/generate-api-reference.cs -->
+
+# CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Media.Enums.SystemSounds
+
+Package: `CP.ReactiveUI.Primitives.Windows.Reactive`. [API index](../api-reference-generated.md).
+
+## Callable members
+
+- [M:CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Media.Enums.SystemSounds.#ctor](#api-9bbc590a038a)
+
+<a id="api-9bbc590a038a"></a>
+
+## `M:CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Media.Enums.SystemSounds.#ctor`
+
+Creates the zero-valued default SystemSounds value.
+
+```csharp
+public CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Media.Enums.SystemSounds.SystemSounds()
+```
+
+Availability: net10.0-windows, net462, net472, net48, net481, net8.0-windows, net9.0-windows. Source: `src/CP.ReactiveUI.Primitives.Windows/Desktop/Media/Enums/SystemSounds.cs:11`.
+
+```csharp
+internal static class ApiExample
+{
+    internal static void Call()
+    {
+        new global::CP.ReactiveUI.Primitives.Windows.Reactive.Desktop.Media.Enums.SystemSounds();
+    }
+}
+```

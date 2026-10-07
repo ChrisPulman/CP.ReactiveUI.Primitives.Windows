@@ -1,0 +1,225 @@
+<!-- GENERATED PUBLIC API REFERENCE: tools/generate-api-reference.cs -->
+
+# CP.ReactiveUI.Primitives.Windows.Desktop.Devices.Structs.DevBroadcastVolume
+
+Package: `CP.ReactiveUI.Primitives.Windows`. [API index](../api-reference-generated.md).
+
+## Callable members
+
+- [M:CP.ReactiveUI.Primitives.Windows.Desktop.Devices.Structs.DevBroadcastVolume.#ctor](#api-eeadba1f5464)
+- [M:CP.ReactiveUI.Primitives.Windows.Desktop.Devices.Structs.DevBroadcastVolume.Equals(CP.ReactiveUI.Primitives.Windows.Desktop.Devices.Structs.DevBroadcastVolume)](#api-53e58141c352)
+- [M:CP.ReactiveUI.Primitives.Windows.Desktop.Devices.Structs.DevBroadcastVolume.Equals(System.Object)](#api-5169d5177ebe)
+- [M:CP.ReactiveUI.Primitives.Windows.Desktop.Devices.Structs.DevBroadcastVolume.GetHashCode](#api-4e4b5de00386)
+- [M:CP.ReactiveUI.Primitives.Windows.Desktop.Devices.Structs.DevBroadcastVolume.op_Equality(CP.ReactiveUI.Primitives.Windows.Desktop.Devices.Structs.DevBroadcastVolume,CP.ReactiveUI.Primitives.Windows.Desktop.Devices.Structs.DevBroadcastVolume)](#api-9a09c2ad1b9f)
+- [M:CP.ReactiveUI.Primitives.Windows.Desktop.Devices.Structs.DevBroadcastVolume.op_Inequality(CP.ReactiveUI.Primitives.Windows.Desktop.Devices.Structs.DevBroadcastVolume,CP.ReactiveUI.Primitives.Windows.Desktop.Devices.Structs.DevBroadcastVolume)](#api-b7be84e51332)
+- [P:CP.ReactiveUI.Primitives.Windows.Desktop.Devices.Structs.DevBroadcastVolume.Drives](#api-b24f7f11b30b)
+- [P:CP.ReactiveUI.Primitives.Windows.Desktop.Devices.Structs.DevBroadcastVolume.IsMediaChange](#api-64fa4c4e4ae1)
+- [P:CP.ReactiveUI.Primitives.Windows.Desktop.Devices.Structs.DevBroadcastVolume.IsNetworkVolume](#api-e1d28eb79b4c)
+
+<a id="api-eeadba1f5464"></a>
+
+## `M:CP.ReactiveUI.Primitives.Windows.Desktop.Devices.Structs.DevBroadcastVolume.#ctor`
+
+Creates the default DevBroadcastVolume value.
+
+```csharp
+public CP.ReactiveUI.Primitives.Windows.Desktop.Devices.Structs.DevBroadcastVolume.DevBroadcastVolume()
+```
+
+Availability: net10.0-windows, net462, net472, net48, net481, net8.0-windows, net9.0-windows. Source: `src/CP.ReactiveUI.Primitives.Windows/Desktop/Devices/Structs/DevBroadcastVolume.cs:20`.
+
+```csharp
+internal static class ApiExample
+{
+    internal static void Call()
+    {
+        new global::CP.ReactiveUI.Primitives.Windows.Desktop.Devices.Structs.DevBroadcastVolume();
+    }
+}
+```
+
+<a id="api-53e58141c352"></a>
+
+## `M:CP.ReactiveUI.Primitives.Windows.Desktop.Devices.Structs.DevBroadcastVolume.Equals(CP.ReactiveUI.Primitives.Windows.Desktop.Devices.Structs.DevBroadcastVolume)`
+
+Indicates whether the current object is equal to another object of the same type.
+
+```csharp
+public bool CP.ReactiveUI.Primitives.Windows.Desktop.Devices.Structs.DevBroadcastVolume.Equals(CP.ReactiveUI.Primitives.Windows.Desktop.Devices.Structs.DevBroadcastVolume other)
+```
+
+Availability: net10.0-windows, net462, net472, net48, net481, net8.0-windows, net9.0-windows. Source: `src/CP.ReactiveUI.Primitives.Windows/Desktop/Devices/Structs/DevBroadcastVolume.cs:96`.
+
+- `other` (`CP.ReactiveUI.Primitives.Windows.Desktop.Devices.Structs.DevBroadcastVolume`): An object to compare with this object.
+
+```csharp
+internal static class ApiExample
+{
+    internal static global::System.IDisposable Call(global::CP.ReactiveUI.Primitives.Windows.Desktop.Devices.Structs.DevBroadcastVolume receiver, global::CP.ReactiveUI.Primitives.Windows.Desktop.Devices.Structs.DevBroadcastVolume @other, global::System.IObserver<global::System.Boolean> operationObserver)
+    {
+        return global::CP.ReactiveUI.Primitives.Windows.Operations.WindowsOperation.From(() => receiver.@Equals(@other)).Select(value => value).Observe().Subscribe(operationObserver);
+    }
+}
+```
+
+<a id="api-5169d5177ebe"></a>
+
+## `M:CP.ReactiveUI.Primitives.Windows.Desktop.Devices.Structs.DevBroadcastVolume.Equals(System.Object)`
+
+Indicates whether this instance and a specified object are equal.
+
+```csharp
+public override bool CP.ReactiveUI.Primitives.Windows.Desktop.Devices.Structs.DevBroadcastVolume.Equals(object obj)
+```
+
+Availability: net10.0-windows, net462, net472, net48, net481, net8.0-windows, net9.0-windows. Source: `src/CP.ReactiveUI.Primitives.Windows/Desktop/Devices/Structs/DevBroadcastVolume.cs:93`.
+
+- `obj` (`object`): The object to compare with the current instance.
+
+```csharp
+internal static class ApiExample
+{
+    internal static global::System.IDisposable Call(global::CP.ReactiveUI.Primitives.Windows.Desktop.Devices.Structs.DevBroadcastVolume receiver, global::System.Object @obj, global::System.IObserver<global::System.Boolean> operationObserver)
+    {
+        return global::CP.ReactiveUI.Primitives.Windows.Operations.WindowsOperation.From(() => receiver.@Equals(@obj)).Select(value => value).Observe().Subscribe(operationObserver);
+    }
+}
+```
+
+<a id="api-4e4b5de00386"></a>
+
+## `M:CP.ReactiveUI.Primitives.Windows.Desktop.Devices.Structs.DevBroadcastVolume.GetHashCode`
+
+Returns the hash code for this instance.
+
+```csharp
+public override int CP.ReactiveUI.Primitives.Windows.Desktop.Devices.Structs.DevBroadcastVolume.GetHashCode()
+```
+
+Availability: net10.0-windows, net462, net472, net48, net481, net8.0-windows, net9.0-windows. Source: `src/CP.ReactiveUI.Primitives.Windows/Desktop/Devices/Structs/DevBroadcastVolume.cs:104`.
+
+```csharp
+internal static class ApiExample
+{
+    internal static global::System.IDisposable Call(global::CP.ReactiveUI.Primitives.Windows.Desktop.Devices.Structs.DevBroadcastVolume receiver, global::System.IObserver<global::System.Int32> operationObserver)
+    {
+        return global::CP.ReactiveUI.Primitives.Windows.Operations.WindowsOperation.From(() => receiver.@GetHashCode()).Select(value => value).Observe().Subscribe(operationObserver);
+    }
+}
+```
+
+<a id="api-9a09c2ad1b9f"></a>
+
+## `M:CP.ReactiveUI.Primitives.Windows.Desktop.Devices.Structs.DevBroadcastVolume.op_Equality(CP.ReactiveUI.Primitives.Windows.Desktop.Devices.Structs.DevBroadcastVolume,CP.ReactiveUI.Primitives.Windows.Desktop.Devices.Structs.DevBroadcastVolume)`
+
+Compares two values for equality.
+
+```csharp
+public static bool CP.ReactiveUI.Primitives.Windows.Desktop.Devices.Structs.DevBroadcastVolume.operator ==(CP.ReactiveUI.Primitives.Windows.Desktop.Devices.Structs.DevBroadcastVolume left, CP.ReactiveUI.Primitives.Windows.Desktop.Devices.Structs.DevBroadcastVolume right)
+```
+
+Availability: net10.0-windows, net462, net472, net48, net481, net8.0-windows, net9.0-windows. Source: `src/CP.ReactiveUI.Primitives.Windows/Desktop/Devices/Structs/DevBroadcastVolume.cs:78`.
+
+- `left` (`CP.ReactiveUI.Primitives.Windows.Desktop.Devices.Structs.DevBroadcastVolume`): The left value.
+- `right` (`CP.ReactiveUI.Primitives.Windows.Desktop.Devices.Structs.DevBroadcastVolume`): The right value.
+
+```csharp
+internal static class ApiExample
+{
+    internal static void Call(global::CP.ReactiveUI.Primitives.Windows.Desktop.Devices.Structs.DevBroadcastVolume @left, global::CP.ReactiveUI.Primitives.Windows.Desktop.Devices.Structs.DevBroadcastVolume @right)
+    {
+        _ = @left == @right;
+    }
+}
+```
+
+<a id="api-b7be84e51332"></a>
+
+## `M:CP.ReactiveUI.Primitives.Windows.Desktop.Devices.Structs.DevBroadcastVolume.op_Inequality(CP.ReactiveUI.Primitives.Windows.Desktop.Devices.Structs.DevBroadcastVolume,CP.ReactiveUI.Primitives.Windows.Desktop.Devices.Structs.DevBroadcastVolume)`
+
+Compares two values for inequality.
+
+```csharp
+public static bool CP.ReactiveUI.Primitives.Windows.Desktop.Devices.Structs.DevBroadcastVolume.operator !=(CP.ReactiveUI.Primitives.Windows.Desktop.Devices.Structs.DevBroadcastVolume left, CP.ReactiveUI.Primitives.Windows.Desktop.Devices.Structs.DevBroadcastVolume right)
+```
+
+Availability: net10.0-windows, net462, net472, net48, net481, net8.0-windows, net9.0-windows. Source: `src/CP.ReactiveUI.Primitives.Windows/Desktop/Devices/Structs/DevBroadcastVolume.cs:87`.
+
+- `left` (`CP.ReactiveUI.Primitives.Windows.Desktop.Devices.Structs.DevBroadcastVolume`): The left value.
+- `right` (`CP.ReactiveUI.Primitives.Windows.Desktop.Devices.Structs.DevBroadcastVolume`): The right value.
+
+```csharp
+internal static class ApiExample
+{
+    internal static void Call(global::CP.ReactiveUI.Primitives.Windows.Desktop.Devices.Structs.DevBroadcastVolume @left, global::CP.ReactiveUI.Primitives.Windows.Desktop.Devices.Structs.DevBroadcastVolume @right)
+    {
+        _ = @left != @right;
+    }
+}
+```
+
+<a id="api-b24f7f11b30b"></a>
+
+## `P:CP.ReactiveUI.Primitives.Windows.Desktop.Devices.Structs.DevBroadcastVolume.Drives`
+
+Gets a string with the drive letters that are influenced in the message.
+
+```csharp
+public string CP.ReactiveUI.Primitives.Windows.Desktop.Devices.Structs.DevBroadcastVolume.Drives { get; }
+```
+
+Availability: net10.0-windows, net462, net472, net48, net481, net8.0-windows, net9.0-windows. Source: `src/CP.ReactiveUI.Primitives.Windows/Desktop/Devices/Structs/DevBroadcastVolume.cs:50`.
+
+```csharp
+internal static class ApiExample
+{
+    internal static void Call(global::CP.ReactiveUI.Primitives.Windows.Desktop.Devices.Structs.DevBroadcastVolume receiver)
+    {
+        _ = receiver.@Drives;
+    }
+}
+```
+
+<a id="api-64fa4c4e4ae1"></a>
+
+## `P:CP.ReactiveUI.Primitives.Windows.Desktop.Devices.Structs.DevBroadcastVolume.IsMediaChange`
+
+Gets a value indicating whether the change affects media in drive.
+
+```csharp
+public bool CP.ReactiveUI.Primitives.Windows.Desktop.Devices.Structs.DevBroadcastVolume.IsMediaChange { get; }
+```
+
+Availability: net10.0-windows, net462, net472, net48, net481, net8.0-windows, net9.0-windows. Source: `src/CP.ReactiveUI.Primitives.Windows/Desktop/Devices/Structs/DevBroadcastVolume.cs:69`.
+
+```csharp
+internal static class ApiExample
+{
+    internal static void Call(global::CP.ReactiveUI.Primitives.Windows.Desktop.Devices.Structs.DevBroadcastVolume receiver)
+    {
+        _ = receiver.@IsMediaChange;
+    }
+}
+```
+
+<a id="api-e1d28eb79b4c"></a>
+
+## `P:CP.ReactiveUI.Primitives.Windows.Desktop.Devices.Structs.DevBroadcastVolume.IsNetworkVolume`
+
+Gets a value indicating whether the indicated logical volume is a network volume.
+
+```csharp
+public bool CP.ReactiveUI.Primitives.Windows.Desktop.Devices.Structs.DevBroadcastVolume.IsNetworkVolume { get; }
+```
+
+Availability: net10.0-windows, net462, net472, net48, net481, net8.0-windows, net9.0-windows. Source: `src/CP.ReactiveUI.Primitives.Windows/Desktop/Devices/Structs/DevBroadcastVolume.cs:72`.
+
+```csharp
+internal static class ApiExample
+{
+    internal static void Call(global::CP.ReactiveUI.Primitives.Windows.Desktop.Devices.Structs.DevBroadcastVolume receiver)
+    {
+        _ = receiver.@IsNetworkVolume;
+    }
+}
+```

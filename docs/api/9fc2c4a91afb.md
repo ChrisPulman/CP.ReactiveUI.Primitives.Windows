@@ -1,0 +1,60 @@
+<!-- GENERATED PUBLIC API REFERENCE: tools/generate-api-reference.cs -->
+
+# CP.ReactiveUI.Primitives.Windows.Desktop.Messaging.WinProcWindowsExtensions
+
+Package: `CP.ReactiveUI.Primitives.Windows`. [API index](../api-reference-generated.md).
+
+## Callable members
+
+- [M:CP.ReactiveUI.Primitives.Windows.Desktop.Messaging.WinProcWindowsExtensions.ObserveWindowMessages(System.Windows.Interop.HwndSource)](#api-55bbc4fa9f80)
+- [M:CP.ReactiveUI.Primitives.Windows.Desktop.Messaging.WinProcWindowsExtensions.ObserveWindowMessages(System.Windows.Window)](#api-00f27ab07356)
+
+<a id="api-55bbc4fa9f80"></a>
+
+## `M:CP.ReactiveUI.Primitives.Windows.Desktop.Messaging.WinProcWindowsExtensions.ObserveWindowMessages(System.Windows.Interop.HwndSource)`
+
+Create an observable for the specified HwndSource.
+
+```csharp
+public static System.IObservable<CP.ReactiveUI.Primitives.Windows.Desktop.Messaging.WindowMessageInfo> CP.ReactiveUI.Primitives.Windows.Desktop.Messaging.WinProcWindowsExtensions.ObserveWindowMessages(System.Windows.Interop.HwndSource hwndSource)
+```
+
+Availability: net10.0-windows, net462, net472, net48, net481, net8.0-windows, net9.0-windows. Source: `src/CP.ReactiveUI.Primitives.Windows/Desktop/Messaging/WinProcWindowsExtensions.cs:22`.
+
+- `hwndSource` (`System.Windows.Interop.HwndSource`): The HWND source to observe.
+
+```csharp
+using CP.ReactiveUI.Primitives.Windows.Desktop.Messaging;
+internal static class ApiExample
+{
+    internal static global::System.IDisposable Call(global::System.Windows.Interop.HwndSource @hwndSource, global::System.IObserver<global::CP.ReactiveUI.Primitives.Windows.Desktop.Messaging.WindowMessageInfo> operationObserver)
+    {
+        return ((global::System.IObservable<global::CP.ReactiveUI.Primitives.Windows.Desktop.Messaging.WindowMessageInfo>)(@hwndSource.@ObserveWindowMessages())).Subscribe(operationObserver);
+    }
+}
+```
+
+<a id="api-00f27ab07356"></a>
+
+## `M:CP.ReactiveUI.Primitives.Windows.Desktop.Messaging.WinProcWindowsExtensions.ObserveWindowMessages(System.Windows.Window)`
+
+Create an observable for the specified window.
+
+```csharp
+public static System.IObservable<CP.ReactiveUI.Primitives.Windows.Desktop.Messaging.WindowMessageInfo> CP.ReactiveUI.Primitives.Windows.Desktop.Messaging.WinProcWindowsExtensions.ObserveWindowMessages(System.Windows.Window window)
+```
+
+Availability: net10.0-windows, net462, net472, net48, net481, net8.0-windows, net9.0-windows. Source: `src/CP.ReactiveUI.Primitives.Windows/Desktop/Messaging/WinProcWindowsExtensions.cs:31`.
+
+- `window` (`System.Windows.Window`): The WPF window to observe.
+
+```csharp
+using CP.ReactiveUI.Primitives.Windows.Desktop.Messaging;
+internal static class ApiExample
+{
+    internal static global::System.IDisposable Call(global::System.Windows.Window @window, global::System.IObserver<global::CP.ReactiveUI.Primitives.Windows.Desktop.Messaging.WindowMessageInfo> operationObserver)
+    {
+        return ((global::System.IObservable<global::CP.ReactiveUI.Primitives.Windows.Desktop.Messaging.WindowMessageInfo>)(@window.@ObserveWindowMessages())).Subscribe(operationObserver);
+    }
+}
+```
