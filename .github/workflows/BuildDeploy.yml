@@ -35,7 +35,7 @@ permissions:
   packages: read
 
 env:
-  configuration: Release
+  BUILD_CONFIGURATION: Release
   solutionFile: CP.ReactiveUI.Primitives.Windows.slnx
   solutionFolder: src
   minMajorMinorVersion: '0.9'
@@ -212,7 +212,7 @@ jobs:
         env:
           MinVerVersionOverride: ${{ steps.minver.outputs.SemVer2 }}
         with:
-          configuration: ${{ env.configuration }}
+          configuration: ${{ env.BUILD_CONFIGURATION }}
           src-folder: ${{ env.solutionFolder }}
           solution-file: ${{ env.solutionFile }}
           create-packages: 'false'
@@ -222,7 +222,7 @@ jobs:
         working-directory: ${{ env.solutionFolder }}
         env:
           MinVerVersionOverride: ${{ steps.minver.outputs.SemVer2 }}
-        run: dotnet pack --no-restore --configuration "${{ env.configuration }}" ${{ env.solutionFile }} -o "${GITHUB_WORKSPACE}/packages" -p:MinVerVersionOverride="${{ steps.minver.outputs.SemVer2 }}"
+        run: dotnet pack --no-restore --configuration "${{ env.BUILD_CONFIGURATION }}" ${{ env.solutionFile }} -o "${GITHUB_WORKSPACE}/packages" -p:MinVerVersionOverride="${{ steps.minver.outputs.SemVer2 }}"
 
       - name: Upload unsigned packages
         uses: actions/upload-artifact@v7
@@ -247,6 +247,12 @@ jobs:
       CERTUM_OTP_URI: ${{ secrets.CERTUM_OTP_URI }}
       CERTUM_CERT_FINGERPRINT: ${{ secrets.CERTUM_CERT_FINGERPRINT }}
     steps:
+      - name: Checkout signing runtime setup
+        uses: actions/checkout@v7
+
+      - name: Ensure signing Python runtime
+        uses: ./.github/actions/setup-signing-python
+
       - name: Download unsigned packages
         uses: actions/download-artifact@v8
         with:
