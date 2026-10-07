@@ -1,5 +1,5 @@
-// Copyright (c) 2023-2026 Chris Pulman and Contributors. All rights reserved.
-// Chris Pulman and Contributors licenses this file to you under the MIT license.
+// Copyright (c) 2019-2026 Chris Pulman and contributors. All rights reserved.
+// Chris Pulman and contributors licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for full license information.
 
 using System.Drawing;
@@ -208,9 +208,9 @@ public readonly struct NativeSizeFloat : IEquatable<NativeSizeFloat>, IComparabl
     /// <inheritdoc />
     public override bool Equals(object obj)
     {
-        if (!(obj is NativeSizeFloat f))
+        if (obj is not NativeSizeFloat f)
         {
-            return !(obj is System.Windows.Size size)
+            return obj is not System.Windows.Size size
                 ? obj is Size drawingSize && Equals(drawingSize)
                 : Equals(size);
         }

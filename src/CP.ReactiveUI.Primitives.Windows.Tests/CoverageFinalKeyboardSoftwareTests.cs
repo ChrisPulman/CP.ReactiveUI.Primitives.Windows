@@ -1,5 +1,5 @@
-// Copyright (c) 2023-2026 Chris Pulman and Contributors. All rights reserved.
-// Chris Pulman and Contributors licenses this file to you under the MIT license.
+// Copyright (c) 2019-2026 Chris Pulman and contributors. All rights reserved.
+// Chris Pulman and contributors licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for full license information.
 
 namespace CP.ReactiveUI.Primitives.Windows.Tests;
@@ -267,10 +267,10 @@ public sealed class CoverageFinalKeyboardSoftwareTests
     private sealed class FakeInstalledSoftwareRegistryKey(string[] subKeyNames) : IInstalledSoftwareRegistryKey
     {
         /// <summary>Registry values by name.</summary>
-        private readonly Dictionary<string, (object Value, RegistryValueKind Kind)> _values = new(StringComparer.OrdinalIgnoreCase);
+        private readonly Dictionary<string, (object Value, RegistryValueKind Kind)> _values = [with(StringComparer.OrdinalIgnoreCase)];
 
         /// <summary>Gets child subkeys by name.</summary>
-        internal Dictionary<string, FakeInstalledSoftwareRegistryKey> SubKeys { get; } = new(StringComparer.OrdinalIgnoreCase);
+        internal Dictionary<string, FakeInstalledSoftwareRegistryKey> SubKeys { get; } = [with(StringComparer.OrdinalIgnoreCase)];
 
         /// <summary>Gets the dispose count.</summary>
         internal int DisposeCount { get; private set; }

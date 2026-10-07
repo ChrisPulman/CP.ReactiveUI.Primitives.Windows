@@ -1,5 +1,5 @@
-// Copyright (c) 2023-2026 Chris Pulman and Contributors. All rights reserved.
-// Chris Pulman and Contributors licenses this file to you under the MIT license.
+// Copyright (c) 2019-2026 Chris Pulman and contributors. All rights reserved.
+// Chris Pulman and contributors licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for full license information.
 
 using System;
@@ -84,9 +84,9 @@ public sealed class InstallerViewModel : ReactiveObject, IDisposable
             .Replay(1)
             .RefCount();
 
-        _validationSummary = validation.ToProperty(this, x => x.ValidationSummary);
+        _validationSummary = validation.ToProperty(this, static x => x.ValidationSummary);
         _planIsValid = validation.Select(static message => string.Equals(message, "Plan is valid", StringComparison.Ordinal))
-            .ToProperty(this, x => x.PlanIsValid);
+            .ToProperty(this, static x => x.PlanIsValid);
 
         InspectEnvironment = ReactiveCommand.CreateFromTask(InspectEnvironmentAsync);
         BrowsePackage = ReactiveCommand.Create(BrowseForPackage);
@@ -98,7 +98,7 @@ public sealed class InstallerViewModel : ReactiveObject, IDisposable
         ClearDiagnostics = ReactiveCommand.Create(ClearDiagnosticLog);
 
         _isBusy = Observable.Merge(InspectEnvironment.IsExecuting, RunWorkflow.IsExecuting, RunReadOnlyProbe.IsExecuting)
-            .ToProperty(this, x => x.IsBusy, false);
+            .ToProperty(this, static x => x.IsBusy, false);
 
         _errorSubscription = Observable.Merge(
                 InspectEnvironment.ThrownExceptions,

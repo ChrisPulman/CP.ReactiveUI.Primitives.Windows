@@ -1,5 +1,5 @@
-// Copyright (c) 2023-2026 Chris Pulman and Contributors. All rights reserved.
-// Chris Pulman and Contributors licenses this file to you under the MIT license.
+// Copyright (c) 2019-2026 Chris Pulman and contributors. All rights reserved.
+// Chris Pulman and contributors licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for full license information.
 
 #if REACTIVE_SHIM
@@ -156,7 +156,7 @@ internal static partial class ComDialogHelper
             var count = items.GetCount();
             checked
             {
-                List<string> result = new((int)count);
+                List<string> result = [with(capacity: (int)count)];
                 for (var i = 0U; i < count; i++)
                 {
                     using var item = items.GetItemAt(i);

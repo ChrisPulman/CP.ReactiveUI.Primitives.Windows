@@ -1,5 +1,5 @@
-// Copyright (c) 2023-2026 Chris Pulman and Contributors. All rights reserved.
-// Chris Pulman and Contributors licenses this file to you under the MIT license.
+// Copyright (c) 2019-2026 Chris Pulman and contributors. All rights reserved.
+// Chris Pulman and contributors licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for full license information.
 
 using System.Collections.ObjectModel;
@@ -324,11 +324,10 @@ public sealed class MainViewModel : ReactiveObject, IActivatableViewModel
         IObservable<bool> enabled,
         Func<IObservable<LabEvent>> sourceFactory,
         string sourceName) =>
-        enabled.DistinctUntilChanged()
+        Observable.Switch(enabled.DistinctUntilChanged()
             .Select(isEnabled => isEnabled
                 ? SafeStream(sourceFactory(), sourceName)
-                : Observable.Empty<LabEvent>())
-            .Switch()
+                : Observable.Empty<LabEvent>()))
             .ObserveOn(_mainScheduler);
 
     private static IObservable<LabEvent> SafeStream(IObservable<LabEvent> source, string sourceName) =>

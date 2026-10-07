@@ -26,6 +26,7 @@
     <None Include="..\..\README.md" Pack="true" PackagePath="\" Link="README.md" />
     <PackageReference Include="log4net" />
     <PackageReference Include="ReactiveUI.Primitives.Reactive" />
+    <PackageReference Include="System.Management" />
     <PackageReference Include="System.ComponentModel.Annotations" Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'" />
   </ItemGroup>
 

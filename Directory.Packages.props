@@ -2,6 +2,9 @@
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
     <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
+    <ReactiveUIVersion>26.0.1</ReactiveUIVersion>
+    <RoslynAnalysersVersion>5.1.2</RoslynAnalysersVersion>
+    <ReactiveUIPrimitivesVersion>9.0.0</ReactiveUIPrimitivesVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -12,20 +15,22 @@
     <PackageVersion Include="Microsoft.Testing.Extensions.CodeCoverage" Version="18.12.0" />
     <PackageVersion Include="MinVer" Version="8.0.0" />
     <PackageVersion Include="Nuke.Common" Version="10.1.0" />
-    <PackageVersion Include="PerformanceSharp.Analyzers" Version="5.1.2" />
-    <PackageVersion Include="ReactiveUI" Version="26.0.1" />
-    <PackageVersion Include="ReactiveUI.Reactive" Version="24.3.0" />
-    <PackageVersion Include="ReactiveUI.WinForms" Version="24.2.0" />
-    <PackageVersion Include="ReactiveUI.WinForms.Reactive" Version="24.3.0" />
-    <PackageVersion Include="ReactiveUI.WPF" Version="24.2.0" />
-    <PackageVersion Include="ReactiveUI.WPF.Reactive" Version="24.3.0" />
-    <PackageVersion Include="ReactiveUI.Primitives" Version="9.0.0" />
-    <PackageVersion Include="ReactiveUI.Primitives.Reactive" Version="7.5.0" />
-    <PackageVersion Include="SecuritySharp.Analyzers" Version="5.1.2" />
-    <PackageVersion Include="StyleSharp.Analyzers" Version="5.1.2" />
+    <PackageVersion Include="ReactiveUI" Version="$(ReactiveUIVersion)" />
+    <PackageVersion Include="ReactiveUI.Reactive" Version="$(ReactiveUIVersion)" />
+    <PackageVersion Include="ReactiveUI.WinForms" Version="$(ReactiveUIVersion)" />
+    <PackageVersion Include="ReactiveUI.WinForms.Reactive" Version="$(ReactiveUIVersion)" />
+    <PackageVersion Include="ReactiveUI.WPF" Version="$(ReactiveUIVersion)" />
+    <PackageVersion Include="ReactiveUI.WPF.Reactive" Version="$(ReactiveUIVersion)" />
+    <PackageVersion Include="ReactiveUI.Primitives" Version="$(ReactiveUIPrimitivesVersion)" />
+    <PackageVersion Include="ReactiveUI.Primitives.Reactive" Version="$(ReactiveUIPrimitivesVersion)" />
+    <PackageVersion Include="Roslynator.Analyzers" Version="5.0.1" />
+    <PackageVersion Include="StyleSharp.Analyzers" Version="$(RoslynAnalysersVersion)" />
+    <PackageVersion Include="PerformanceSharp.Analyzers" Version="$(RoslynAnalysersVersion)" />
+    <PackageVersion Include="SecuritySharp.Analyzers" Version="$(RoslynAnalysersVersion)" />
     <PackageVersion Include="System.ComponentModel.Annotations" Version="5.0.0" />
+    <PackageVersion Include="System.Management" Version="10.0.12" />
     <PackageVersion Include="System.Resources.Extensions" Version="10.0.12" />
     <PackageVersion Include="System.Security.Cryptography.Xml" Version="10.0.12" />
-    <PackageVersion Include="TUnit" Version="1.72.16" />
+    <PackageVersion Include="TUnit" Version="1.73.0" />
   </ItemGroup>
 </Project>
