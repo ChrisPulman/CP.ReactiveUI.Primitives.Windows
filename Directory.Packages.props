@@ -3,7 +3,7 @@
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
     <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
     <ReactiveUIVersion>26.0.1</ReactiveUIVersion>
-    <RoslynAnalysersVersion>5.1.2</RoslynAnalysersVersion>
+    <RoslynAnalysersVersion>5.1.3</RoslynAnalysersVersion>
     <ReactiveUIPrimitivesVersion>9.0.0</ReactiveUIPrimitivesVersion>
   </PropertyGroup>
 
